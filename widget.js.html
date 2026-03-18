@@ -1,0 +1,371 @@
+<!-- ============================================================
+     🟢 BANZITOS® CHATBOT WIDGET — VERSIÓN STANDALONE
+     Pegar este bloque completo justo antes de </body> en theme.liquid
+     ============================================================ -->
+<script id="banzitos-chatbot-script">
+(function(){
+  "use strict";
+  if(document.getElementById('bz-widget-root')) return;
+
+  /* ─── KNOWLEDGE BASE ─── */
+  var KB = {
+    products: [
+      {n:"Crujientes Sal de Mar 110g",c:"Crujientes",u:"https://banzitos.com.mx/products/banzitos%C2%AE-crujientes-sal-de-mar-110g",d:"Botanas crujientes de garbanzo sabor sal de mar. 100% naturales, veganas y plant-based.",k:["sal","mar","sal de mar","crujientes","garbanzo"]},
+      {n:"Crujientes Chipotle 110g",c:"Crujientes",u:"https://banzitos.com.mx/products/banzitos%C2%AE-crujientes-chipotle-110g",d:"Botanas crujientes de garbanzo sabor chipotle. 100% naturales, veganas y plant-based.",k:["chipotle","crujientes","picante"]},
+      {n:"Crujientes Limón y Sal 110g",c:"Crujientes",u:"https://banzitos.com.mx/products/copy-of-banzitos%C2%AE-crujientes-limon-y-sal-110g-muy-pronto",d:"Botanas crujientes de garbanzo sabor limón y sal. 100% naturales, veganas y plant-based.",k:["limón","limon","sal","crujientes"]},
+      {n:"Puffs Chipotle 35g",c:"Puffs",u:"https://banzitos.com.mx/products/banzitos%C2%AE-puffs-chipotle-35g",d:"Puffs de garbanzo horneados sabor chipotle. Ligeros, crujientes y naturales.",k:["puffs","chipotle","horneado","ligero"]},
+      {n:"Puffs Especias 35g",c:"Puffs",u:"https://banzitos.com.mx/products/banzitos%C2%AE-puffs-hierbas-italianas-35g",d:"Puffs de garbanzo horneados sabor especias/hierbas italianas. Ligeros y naturales.",k:["puffs","especias","hierbas","italiano","horneado"]},
+      {n:"Puffs Chile Piquín 35g",c:"Puffs",u:"https://banzitos.com.mx/products/banzitos%C2%AE-puffs-chille-piquin-35g",d:"Puffs de garbanzo horneados sabor chile piquín. Picositos y naturales.",k:["puffs","piquín","piquin","chile","picante","picosito","horneado"]},
+      {n:"Pack Crujientes Surtido",c:"Packs",u:"https://banzitos.com.mx/products/12-pack-banzitos-crujientes-35g-surtido",d:"Pack surtido de botanas crujientes de garbanzo en presentación de 110g.",k:["pack","surtido","crujientes","paquete","combo"]},
+      {n:"Puffs 24 Pack Surtido",c:"Packs",u:"https://banzitos.com.mx/products/banzitos%C2%AE-puffs-24-pack-botanas",d:"Pack de 24 puffs de garbanzo horneados en sabores surtidos. Ideal para lonchera.",k:["pack","24","surtido","puffs","paquete","lonchera"]},
+      {n:"Pack Puffs + Crujientes Starter Mix",c:"Packs",u:"https://banzitos.com.mx/products/pack-puffs-crujientes-mix",d:"Pack combinado de Puffs y Crujientes para probar ambas líneas.",k:["mix","starter","combo","pack","probar"]},
+      {n:"Tahini Clásico 530g",c:"Tahini",u:"https://banzitos.com.mx/products/banzitos%C2%AE-tahini-clasico-530g",d:"Tahini clásico elaborado con ajonjolí de alta calidad. Versátil para cocinar, aderezos y hummus.",k:["tahini","ajonjolí","hummus","aderezo"]},
+      {n:"Plant a Tree",c:"Impacto",u:"https://banzitos.com.mx/products/plant-a-tree-1",d:"Contribuye a plantar un árbol a través del programa de impacto social Banzitos.",k:["árbol","arbol","plantar","impacto","ambiental","reforestar"]},
+      {n:"Tarjeta de Regalo",c:"Gift Cards",u:"https://banzitos.com.mx/products/tarjeta-de-regalo",d:"Tarjeta de regalo para usar en la tienda en línea de Banzitos.",k:["regalo","tarjeta","gift","card"]}
+    ],
+    faq: [
+      {q:"vegano",a:"¡Sí! Todos nuestros productos están 100% hechos a base de plantas. Son veganos, vegetarianos y plant-based. Pueden contener minúsculas trazas de leche por transferencia en el ambiente de producción.",k:["vegano","vegana","veganos","vegetariano","plant-based","plantas","animal"]},
+      {q:"alérgenos",a:"Nuestros ingredientes son libres de los 8 principales alérgenos (leche, huevo, pescado, mariscos, nueces, trigo, soya, cacahuate). Sin embargo, pueden contener minúsculas trazas por transferencia en el ambiente de producción.",k:["alérgeno","alergeno","alergia","gluten","leche","huevo","nuez","soya","trigo","lactosa","celíaco","celiaco","intolerancia"]},
+      {q:"diabéticos",a:"La mayoría de nuestros productos sí son aptos. Con los Puffs Chile Piquín, recomendamos consultar con tu médico ya que contienen Jugo de Limón clasificado como azúcares añadidos. Cada persona es diferente, siempre consulta a tu médico.",k:["diabético","diabetico","diabetes","azúcar","azucar","glucosa","insulina"]},
+      {q:"impacto",a:"Desde la siembra del garbanzo generamos impacto: ahorra agua vs cultivos tradicionales y fija nitrógeno en los suelos. Con cada unidad vendida, destinamos una parte a organizaciones no lucrativas mexicanas. 🟢 Empaques verdes → reforestar, 🔵 Azules → agua limpia, 🔴 Rojos → nutrición infantil.",k:["impacto","social","ambiental","buy one","help one","sustentable","sustentabilidad","ecológico","ecologico","árbol","arbol","planeta"]},
+      {q:"distribuir",a:"¡Nos encantaría! Visita nuestra página de contacto para más información:\n👉 https://banzitos.com.mx/pages/contact\n\nNuestro equipo se pondrá en contacto contigo.",k:["distribuir","distribución","distribucion","negocio","tienda","vender","mayoreo","b2b","comercial","proveedor","alianza"]},
+      {q:"envío",a:"Los gastos de envío se calculan en la pantalla de pagos. El envío es GRATIS en compras mayores a $499 MXN. Enviamos a todo México. Impuesto ya incluido en nuestros precios.",k:["envío","envio","enviar","costo","pago","gastos","gratis","free","shipping","entrega","cuánto","cuanto cuesta"]},
+      {q:"dónde comprar",a:"Puedes comprar directo en nuestra tienda en línea (banzitos.com.mx) o encontrarnos en: Soriana, La Comer, H-E-B, Amazon, Mercado Libre, La Europea y Mora Mora.\n\n📍 Encuentra tu punto de venta más cercano:\nhttps://banzitos.com.mx/pages/puntos-de-venta",k:["dónde","donde","comprar","encontrar","tienda","supermercado","soriana","heb","h-e-b","comer","amazon","mercado libre","punto","venta","sucursal"]},
+      {q:"garbanzo",a:"¡Así es! Nuestros snacks están hechos a base de garbanzo, una leguminosa rica en fibra y proteína vegetal. El garbanzo es un superalimento que además ahorra agua en su cultivo y fija nitrógeno en los suelos, ¡beneficiando al planeta!",k:["garbanzo","legumbre","leguminosa","ingrediente","hecho de","de qué","qué es","que es"]}
+    ],
+    retailers: ["Soriana","Mercado Libre","La Comer","H-E-B","Amazon","La Europea","Mora Mora"],
+    contact: "https://banzitos.com.mx/pages/contact",
+    storeLocator: "https://banzitos.com.mx/pages/puntos-de-venta",
+    website: "https://banzitos.com.mx"
+  };
+
+  /* ─── SMART RESPONSE ENGINE ─── */
+  function normalize(s){ return s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9\s]/g," ").trim(); }
+
+  function findResponse(msg){
+    var q = normalize(msg);
+    var words = q.split(/\s+/).filter(function(w){return w.length>2;});
+
+    // Greeting
+    if(/^(hola|hey|buenas|buenos|qué tal|que tal|hi|hello|saludos)/.test(q)){
+      return {type:"text",text:"¡Hola! 👋 Soy Banzito, tu asistente de Banzitos®. Puedo ayudarte con:\n\n🛒 Información de productos\n📦 Envíos y pedidos\n🏪 Dónde comprar\n🌱 Alérgenos y nutrición\n🌍 Impacto social\n\n¿En qué te puedo ayudar?"};
+    }
+
+    // Thanks
+    if(/^(gracias|thanks|perfecto|genial|ok gracias|muchas gracias)/.test(q)){
+      return {type:"text",text:"¡Con gusto! 😊 Si necesitas algo más, aquí estoy. ¡Que disfrutes tus Banzitos! 🥳"};
+    }
+
+    // Bye
+    if(/^(adios|adiós|bye|chao|hasta luego|nos vemos)/.test(q)){
+      return {type:"text",text:"¡Hasta pronto! 👋 Gracias por escribirnos. ¡Snacking con propósito! 🌱"};
+    }
+
+    // Product search
+    var productMatches = [];
+    KB.products.forEach(function(p){
+      var score = 0;
+      words.forEach(function(w){
+        if(normalize(p.n).indexOf(w)!==-1) score+=3;
+        if(normalize(p.c).indexOf(w)!==-1) score+=2;
+        if(normalize(p.d).indexOf(w)!==-1) score+=1;
+        p.k.forEach(function(k){ if(normalize(k).indexOf(w)!==-1) score+=2; });
+      });
+      if(score>0) productMatches.push({p:p,s:score});
+    });
+    productMatches.sort(function(a,b){return b.s-a.s;});
+
+    // FAQ search
+    var faqMatches = [];
+    KB.faq.forEach(function(f){
+      var score = 0;
+      words.forEach(function(w){
+        f.k.forEach(function(k){ if(normalize(k).indexOf(w)!==-1) score+=3; });
+        if(normalize(f.a).indexOf(w)!==-1) score+=1;
+      });
+      if(score>0) faqMatches.push({f:f,s:score});
+    });
+    faqMatches.sort(function(a,b){return b.s-a.s;});
+
+    // Show all products
+    if((q.indexOf("producto")!==-1 && (q.indexOf("todos")!==-1||q.indexOf("catalogo")!==-1||q.indexOf("menu")!==-1||q.indexOf("que tienen")!==-1||q.indexOf("que venden")!==-1||q.indexOf("ver")!==-1||q.indexOf("mostrar")!==-1||q.indexOf("cuales")!==-1||q.indexOf("quiero")!==-1)) || (q.indexOf("catalogo")!==-1) || (q.indexOf("que venden")!==-1) || (q.indexOf("que tienen")!==-1)){
+      var allProducts = KB.products.filter(function(p){return p.c!=="Impacto"&&p.c!=="Gift Cards";});
+      var txt = "¡Aquí te muestro nuestro catálogo! 🎉\n\n";
+      var cats = {};
+      allProducts.forEach(function(p){ if(!cats[p.c]) cats[p.c]=[]; cats[p.c].push(p); });
+      Object.keys(cats).forEach(function(c){
+        txt += "📦 "+c+":\n";
+        cats[c].forEach(function(p){ txt += "• "+p.n+"\n"; });
+        txt += "\n";
+      });
+      txt += "¿Te interesa alguno en particular? 😋";
+      return {type:"text",text:txt};
+    }
+
+    // Specific product match
+    if(productMatches.length>0 && productMatches[0].s>=4){
+      var top = productMatches.slice(0,3);
+      if(top.length===1 || productMatches[0].s > productMatches[1].s*1.5){
+        var p = top[0].p;
+        return {type:"product",text:p.d+"\n\n👉 Ver producto: "+p.u,product:p};
+      } else {
+        var txt = "Encontré estos productos que podrían interesarte:\n\n";
+        top.forEach(function(m){
+          txt += "• **"+m.p.n+"** — "+m.p.d.split(".")[0]+".\n  👉 "+m.p.u+"\n\n";
+        });
+        return {type:"text",text:txt};
+      }
+    }
+
+    // FAQ match
+    if(faqMatches.length>0 && faqMatches[0].s>=3){
+      return {type:"text",text:faqMatches[0].f.a};
+    }
+
+    // Weaker product match
+    if(productMatches.length>0 && productMatches[0].s>=2){
+      var p = productMatches[0].p;
+      return {type:"product",text:"Creo que te refieres a nuestro **"+p.n+"**.\n\n"+p.d+"\n\n👉 "+p.u,product:p};
+    }
+
+    // Weaker FAQ match
+    if(faqMatches.length>0 && faqMatches[0].s>=2){
+      return {type:"text",text:faqMatches[0].f.a};
+    }
+
+    // Order/tracking
+    if(q.indexOf("pedido")!==-1||q.indexOf("orden")!==-1||q.indexOf("tracking")!==-1||q.indexOf("seguimiento")!==-1||q.indexOf("rastreo")!==-1||q.indexOf("rastrear")!==-1){
+      return {type:"text",text:"Para consultar el estado de tu pedido, revisa el email de confirmación que te enviamos al realizar tu compra. Ahí encontrarás el enlace de seguimiento.\n\nSi necesitas más ayuda, contáctanos:\n📧 siman@banzitos.com.mx\n👉 "+KB.contact};
+    }
+
+    // Refund/complaint
+    if(q.indexOf("reembolso")!==-1||q.indexOf("devolucion")!==-1||q.indexOf("queja")!==-1||q.indexOf("reclamo")!==-1||q.indexOf("problema")!==-1||q.indexOf("danado")!==-1||q.indexOf("defectuoso")!==-1){
+      return {type:"escalate",text:"Lamento mucho la situación. 😔 Para poder ayudarte con esto, necesitamos que nuestro equipo de soporte revise tu caso personalmente.\n\nPor favor contáctanos:\n📧 siman@banzitos.com.mx\n👉 "+KB.contact+"\n\nIncluye tu número de pedido y una descripción del problema. Te responderemos lo antes posible."};
+    }
+
+    // Price
+    if(q.indexOf("precio")!==-1||q.indexOf("costo")!==-1||q.indexOf("cuanto")!==-1||q.indexOf("cuánto")!==-1){
+      return {type:"text",text:"Los precios varían según el producto. Te invito a ver nuestro catálogo completo con precios actualizados:\n\n🛒 "+KB.website+"\n\n¡Recuerda que el envío es GRATIS en compras mayores a $499 MXN! 🚚"};
+    }
+
+    // Contact
+    if(q.indexOf("contacto")!==-1||q.indexOf("telefono")!==-1||q.indexOf("email")!==-1||q.indexOf("correo")!==-1||q.indexOf("hablar")!==-1||q.indexOf("humano")!==-1||q.indexOf("persona")!==-1||q.indexOf("agente")!==-1){
+      return {type:"text",text:"¡Claro! Puedes contactar a nuestro equipo:\n\n📧 Email: siman@banzitos.com.mx\n📝 Formulario: "+KB.contact+"\n\n📱 Redes sociales:\n• Instagram: @banzitos\n• Facebook: /banzitos\n• TikTok: @banzitos"};
+    }
+
+    // Default — don't know
+    return {type:"fallback",text:"¡Gracias por tu pregunta! No estoy seguro de tener esa información. 🤔\n\nPuedo ayudarte con:\n🛒 Productos y sabores\n📦 Envíos\n🏪 Dónde comprar\n🌱 Alérgenos y nutrición\n🌍 Impacto social\n\nO si prefieres, contáctanos directamente:\n📧 siman@banzitos.com.mx\n👉 "+KB.contact};
+  }
+
+  /* ─── CREATE WIDGET UI ─── */
+  var root = document.createElement('div');
+  root.id = 'bz-widget-root';
+  document.body.appendChild(root);
+
+  var shadow = root.attachShadow({mode:'open'});
+
+  var style = document.createElement('style');
+  style.textContent = [
+    "@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');",
+    ":host{all:initial;font-family:'Nunito',sans-serif;}",
+    "*{box-sizing:border-box;margin:0;padding:0;}",
+    ".bubble{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#1a4b8c,#2563eb);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(26,75,140,0.4);transition:transform .2s,box-shadow .2s;z-index:999999;}",
+    ".bubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(26,75,140,0.5);}",
+    ".bubble svg{width:28px;height:28px;}",
+    ".badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:#ef4444;border:2px solid white;display:none;}",
+    ".win{position:fixed;bottom:24px;right:24px;width:380px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 48px);border-radius:16px;overflow:hidden;display:none;flex-direction:column;background:#fff;box-shadow:0 12px 48px rgba(0,0,0,0.15),0 4px 16px rgba(0,0,0,0.1);z-index:999999;}",
+    ".win.open{display:flex;}",
+    ".hdr{background:linear-gradient(135deg,#1a4b8c,#2563eb);padding:16px 20px;display:flex;align-items:center;gap:12px;flex-shrink:0;}",
+    ".hdr-ava{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;}",
+    ".hdr-ava svg{width:20px;height:20px;}",
+    ".hdr-info h3{margin:0;font-size:15px;font-weight:700;color:#fff;}",
+    ".hdr-info p{margin:0;font-size:12px;color:rgba(255,255,255,0.8);}",
+    ".hdr-close{background:none;border:none;cursor:pointer;padding:4px;opacity:0.8;transition:opacity .15s;margin-left:auto;}",
+    ".hdr-close:hover{opacity:1;}",
+    ".hdr-close svg{width:18px;height:18px;}",
+    ".msgs{flex:1;overflow-y:auto;padding:16px 16px 8px;display:flex;flex-direction:column;gap:12px;background:#f8fafc;}",
+    ".msgs::-webkit-scrollbar{width:4px;}",
+    ".msgs::-webkit-scrollbar-track{background:transparent;}",
+    ".msgs::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:2px;}",
+    ".msg{display:flex;max-width:85%;}",
+    ".msg.user{align-self:flex-end;}",
+    ".msg.bot{align-self:flex-start;}",
+    ".msg-body{padding:10px 14px;font-size:14px;line-height:1.5;word-wrap:break-word;white-space:pre-wrap;}",
+    ".msg.user .msg-body{border-radius:16px 16px 4px 16px;background:linear-gradient(135deg,#1a4b8c,#2563eb);color:#fff;}",
+    ".msg.bot .msg-body{border-radius:16px 16px 16px 4px;background:#fff;color:#1e293b;box-shadow:0 1px 3px rgba(0,0,0,0.08);}",
+    ".msg.bot .msg-body a{color:#2563eb;text-decoration:none;font-weight:600;}",
+    ".msg.bot .msg-body a:hover{text-decoration:underline;}",
+    ".typing{display:flex;gap:5px;padding:10px 18px;border-radius:16px 16px 16px 4px;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,0.08);align-self:flex-start;}",
+    ".dot{width:8px;height:8px;border-radius:50%;background:#94a3b8;animation:pulse 1.4s ease-in-out infinite;}",
+    ".dot:nth-child(2){animation-delay:0.16s;}",
+    ".dot:nth-child(3){animation-delay:0.32s;}",
+    "@keyframes pulse{0%,80%,100%{transform:scale(0.6);opacity:0.4;}40%{transform:scale(1);opacity:1;}}",
+    ".ipt{padding:12px 16px;border-top:1px solid #e2e8f0;background:#fff;display:flex;gap:8px;flex-shrink:0;}",
+    ".ipt input{flex:1;border:1.5px solid #e2e8f0;border-radius:12px;padding:10px 14px;font-size:14px;font-family:'Nunito',sans-serif;outline:none;transition:border-color .15s;background:#f8fafc;}",
+    ".ipt input:focus{border-color:#2563eb;}",
+    ".ipt input::placeholder{color:#94a3b8;}",
+    ".ipt button{width:40px;height:40px;border-radius:12px;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s,transform .1s;flex-shrink:0;}",
+    ".ipt button.active{background:linear-gradient(135deg,#1a4b8c,#2563eb);}",
+    ".ipt button.inactive{background:#94a3b8;cursor:default;}",
+    ".ipt button:active.active{transform:scale(0.93);}",
+    ".ipt button svg{width:16px;height:16px;}",
+    ".pwr{text-align:center;padding:6px 0 10px;font-size:11px;color:#94a3b8;background:#fff;}",
+    ".pwr a{color:#64748b;text-decoration:none;}",
+    ".quick-replies{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}",
+    ".quick-reply{display:inline-block;padding:6px 12px;border-radius:20px;border:1.5px solid #2563eb;color:#2563eb;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;background:transparent;}",
+    ".quick-reply:hover{background:#2563eb;color:#fff;}"
+  ].join('\n');
+  shadow.appendChild(style);
+
+  // Bubble
+  var bubble = document.createElement('button');
+  bubble.className = 'bubble';
+  bubble.setAttribute('aria-label','Chat con Banzitos');
+  bubble.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><span class="badge"></span>';
+  shadow.appendChild(bubble);
+
+  // Window
+  var win = document.createElement('div');
+  win.className = 'win';
+  win.innerHTML = [
+    '<div class="hdr">',
+    '  <div class="hdr-ava"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><circle cx="12" cy="12" r="10"/><text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="Nunito,sans-serif">B</text></svg></div>',
+    '  <div class="hdr-info"><h3>Banzitos\u00ae Soporte</h3><p id="bz-status">En l\u00ednea</p></div>',
+    '  <button class="hdr-close" aria-label="Cerrar chat"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>',
+    '</div>',
+    '<div class="msgs" id="bz-msgs"></div>',
+    '<div class="ipt">',
+    '  <input type="text" id="bz-ipt" placeholder="Escribe tu mensaje..." autocomplete="off"/>',
+    '  <button id="bz-send" class="inactive" aria-label="Enviar"><svg viewBox="0 0 24 24" fill="white"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg></button>',
+    '</div>',
+    '<div class="pwr">Powered by <a href="https://banzitos.com.mx" target="_blank" rel="noopener noreferrer">Banzitos\u00ae</a></div>'
+  ].join('');
+  shadow.appendChild(win);
+
+  var msgsEl = shadow.getElementById('bz-msgs');
+  var iptEl = shadow.getElementById('bz-ipt');
+  var sendEl = shadow.getElementById('bz-send');
+  var statusEl = shadow.getElementById('bz-status');
+  var closeEl = shadow.querySelector('.hdr-close');
+
+  var isOpen = false;
+  var isTyping = false;
+
+  function toggle(){
+    isOpen = !isOpen;
+    if(isOpen){
+      win.classList.add('open');
+      bubble.style.display = 'none';
+      iptEl.focus();
+    } else {
+      win.classList.remove('open');
+      bubble.style.display = 'flex';
+    }
+  }
+
+  bubble.onclick = toggle;
+  closeEl.onclick = toggle;
+
+  // Format text with links and bold
+  function formatText(text){
+    text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    text = text.replace(/(https?:\/\/[^\s\n]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+    return text;
+  }
+
+  function addMsg(role, text, withQuickReplies){
+    var div = document.createElement('div');
+    div.className = 'msg ' + role;
+    var body = document.createElement('div');
+    body.className = 'msg-body';
+    if(role === 'bot'){
+      body.innerHTML = formatText(text);
+      if(withQuickReplies){
+        var qr = document.createElement('div');
+        qr.className = 'quick-replies';
+        var replies = ["Ver productos","Envío y costos","Dónde comprar","Alérgenos"];
+        replies.forEach(function(r){
+          var btn = document.createElement('span');
+          btn.className = 'quick-reply';
+          btn.textContent = r;
+          btn.onclick = function(){ sendMessage(r); };
+          qr.appendChild(btn);
+        });
+        body.appendChild(qr);
+      }
+    } else {
+      body.textContent = text;
+    }
+    div.appendChild(body);
+    msgsEl.appendChild(div);
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+  }
+
+  function showTyping(){
+    isTyping = true;
+    statusEl.textContent = 'Escribiendo...';
+    var div = document.createElement('div');
+    div.className = 'typing';
+    div.id = 'bz-typing';
+    div.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+    msgsEl.appendChild(div);
+    msgsEl.scrollTop = msgsEl.scrollHeight;
+  }
+
+  function hideTyping(){
+    isTyping = false;
+    statusEl.textContent = 'En línea';
+    var t = shadow.getElementById('bz-typing');
+    if(t) t.remove();
+  }
+
+  function sendMessage(text){
+    if(!text) text = iptEl.value.trim();
+    if(!text || isTyping) return;
+    addMsg('user', text);
+    iptEl.value = '';
+    updateSendBtn();
+    showTyping();
+
+    // Simulate brief thinking delay
+    var delay = 400 + Math.random() * 800;
+    setTimeout(function(){
+      hideTyping();
+      var response = findResponse(text);
+      addMsg('bot', response.text, response.type === 'fallback');
+    }, delay);
+  }
+
+  function updateSendBtn(){
+    if(iptEl.value.trim()){
+      sendEl.className = 'active';
+    } else {
+      sendEl.className = 'inactive';
+    }
+  }
+
+  iptEl.addEventListener('input', updateSendBtn);
+  iptEl.addEventListener('keydown', function(e){
+    if(e.key === 'Enter' && !e.shiftKey){
+      e.preventDefault();
+      sendMessage();
+    }
+  });
+  sendEl.addEventListener('click', function(){ sendMessage(); });
+
+  // Welcome message
+  addMsg('bot', '¡Hola! 👋 Soy Banzito, tu asistente de Banzitos®. ¿En qué puedo ayudarte?', true);
+
+  // Auto-open after 8 seconds on first visit
+  if(!window.sessionStorage || !sessionStorage.getItem('bz-opened')){
+    setTimeout(function(){
+      if(!isOpen){
+        var badge = shadow.querySelector('.badge');
+        if(badge) badge.style.display = 'block';
+      }
+    }, 8000);
+    try { sessionStorage.setItem('bz-opened','1'); } catch(e){}
+  }
+})();
+</script>
+<!-- Fin Banzitos® Chatbot Widget -->
