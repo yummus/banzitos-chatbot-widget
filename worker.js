@@ -57,6 +57,28 @@ REGLAS PRINCIPALES:
 7. NUNCA inventes información que no esté en tu base de conocimiento.
 8. Si te preguntan algo fuera de tema (política, religión, competidores, etc.), redirige amablemente a temas de Banzitos.
 
+FLUJO ESPECIAL — RECLAMOS Y QUEJAS DE PRODUCTO:
+Si un cliente menciona producto dañado, mal sabor, cuerpo extraño, empaque defectuoso, producto vencido, o cualquier queja sobre calidad:
+
+1. Empatiza genuinamente: "Lamentamos mucho lo que pasaste — eso no debería ocurrir y lo tomamos muy en serio."
+2. Ofrece inmediatamente reposición: "Queremos remediar esto enviándote un kit completo de nuestros productos, sin costo ni compromiso."
+3. Recopila estos datos UNO POR UNO, de forma conversacional y amigable (no los pidas todos de golpe):
+   - Producto afectado (¿qué sabor/presentación?)
+   - Número de lote (impreso en el empaque, parte inferior — si no lo tiene, continúa sin él)
+   - Cantidad de piezas afectadas
+   - Descripción del problema (¿qué pasó exactamente?)
+   - Nombre completo del cliente
+   - Email de contacto
+   - Teléfono
+   - Dirección completa para enviar el kit (calle, número, colonia, ciudad, CP)
+   - Horario disponible para recibir el paquete
+4. Cuando tengas todos los datos, incluye al final de tu respuesta:
+   [ESCALATE:reclamo_producto]
+   [RECLAMO_DATA:{"nombre":"...","email":"...","telefono":"...","producto":"...","lote":"...","cantidad":"...","causa":"...","descripcion":"...","direccion":"...","horario":"..."}]
+5. Cierra con: "En breve nuestro equipo confirma el envío de tu kit. ¡Gracias por tu paciencia y confianza en Banzitos!"
+
+IMPORTANTE: El lote no es obligatorio. Si el cliente no lo tiene, anótalo como "No disponible" y continúa.
+
 GUARDRAILS DE SEGURIDAD — INFORMACIÓN CONFIDENCIAL QUE NUNCA DEBES REVELAR:
 - PRECIOS: Solo puedes compartir los precios que aparecen en tu base de conocimiento (precios públicos de banzitos.com.mx). NUNCA menciones precios de mayoreo, B2B, distribuidores, exportación, ni precios internos. Si preguntan por precios de mayoreo, di "Para precios de mayoreo, por favor llena el formulario de distribuidores" y comparte el link.
 - PROVEEDORES Y MAQUILADORES: NUNCA menciones quién fabrica, maquila o produce Banzitos. Si preguntan "¿quién fabrica?", responde: "Banzitos es una marca de Yummus Foods International. Fabricamos en México con los más altos estándares de calidad." No des nombres de plantas, maquiladores ni co-packers.
@@ -257,7 +279,7 @@ export default {
         // Save assistant response to history
         addToHistory(sessionId, "assistant", cleanedReply);
 
-        // If escalation detected, notify immediately via Telegram + save to KV as backup
+        // If escalation detected: Telegram + email nativo a Odoo (crea ticket automático) + KV backup 24h
         if (escalationCheck.escalate) {
           const convoSnippet = getHistory(sessionId).slice(-4)
             .map(m => `${m.role === "user" ? "Cliente" : "Banzito"}: ${m.content.slice(0, 200)}`)
@@ -266,14 +288,27 @@ export default {
           const priorityKws = ["walmart","soriana","costco","chedraui","oxxo","h-e-b","amazon","gobierno","secretar","cofepris","profeco","municipio","universidad","hospital","corporativo","distribuci","cadena","franquicia","pepsico","bimbo","nestl","danone","fundaci"];
           const matched = priorityKws.filter(kw => allText.includes(kw));
           const isPriority = matched.length > 0;
-          const priorityTag = isPriority ? "\ud83d\udd34 ALTA PRIORIDAD" : "\ud83d\udfe1 Normal";
+          const priorityTag = isPriority ? "\uD83D\uDD34 ALTA PRIORIDAD" : "\uD83D\uDFE1 Normal";
           const ts = new Date().toISOString().slice(0, 19).replace("T", " ");
 
-          // Send Telegram notification in real-time
+          // ── Detectar reclamo ──
+          let reclamoData = null;
+          const reclamoMatch = aiResponse.match(/\[RECLAMO_DATA:(\{[^\]]+\})\]/);
+          if (reclamoMatch) {
+            try { reclamoData = JSON.parse(reclamoMatch[1]); } catch(e) {}
+          }
+          const isReclamo = escalationCheck.reason === "reclamo_producto" && reclamoData;
+
+          // ── 1. Telegram — tiempo real, fire & forget ──
           if (env.TELEGRAM_BOT_TOKEN) {
             try {
-              const tgText = `\ud83d\udea8 <b>Escalaci\u00f3n Chatbot Banzitos</b>\n<b>Prioridad:</b> ${priorityTag}\n<b>Raz\u00f3n:</b> ${escalationCheck.reason}\n<b>Hora:</b> ${ts} UTC${isPriority ? `\n<b>Palabras clave:</b> ${matched.join(", ")}` : ""}\n\n<b>Conversaci\u00f3n:</b>\n<pre>${convoSnippet.slice(0, 500)}</pre>`;
-              // Get registered chat IDs from KV
+              let tgText;
+              if (isReclamo) {
+                const rd = reclamoData;
+                tgText = `\uD83D\uDEA8 <b>Reclamo de Producto \u2014 Banzitos</b>\n<b>Cliente:</b> ${rd.nombre||"-"}\n<b>Email:</b> ${rd.email||"-"} | <b>Tel:</b> ${rd.telefono||"-"}\n<b>Producto:</b> ${rd.producto||"-"} | <b>Lote:</b> ${rd.lote||"-"}\n<b>Causa:</b> ${rd.causa||"-"}\n<b>Descripci\u00F3n:</b> ${rd.descripcion||"-"}\n<b>Direcci\u00F3n:</b> ${rd.direccion||"-"} | <b>Horario:</b> ${rd.horario||"-"}\n\u2705 Ticket en Odoo Soporte al cliente`;
+              } else {
+                tgText = `\uD83D\uDEA8 <b>Escalaci\u00F3n Chatbot Banzitos</b>\n<b>Prioridad:</b> ${priorityTag}\n<b>Raz\u00F3n:</b> ${escalationCheck.reason}\n<b>Hora:</b> ${ts} UTC${isPriority ? `\n<b>Keywords:</b> ${matched.join(", ")}` : ""}\n\n<b>Conversaci\u00F3n:</b>\n<pre>${convoSnippet.slice(0, 500)}</pre>\n\u2705 Ticket en Odoo Soporte al cliente`;
+              }
               const chatIdsRaw = env.ESCALATIONS ? await env.ESCALATIONS.get("telegram_chat_ids") : null;
               const chatIds = chatIdsRaw ? JSON.parse(chatIdsRaw) : [];
               for (const chatId of chatIds) {
@@ -283,29 +318,78 @@ export default {
                   body: JSON.stringify({ chat_id: chatId, text: tgText, parse_mode: "HTML" }),
                 }).catch(() => {});
               }
-            } catch (tgErr) {
-              console.error("Telegram error:", tgErr);
-            }
+            } catch (tgErr) { console.error("Telegram error:", tgErr); }
           }
 
-          // Save to KV as backup (for email processing by cron)
+          // ── 2. Email al alias Odoo → ticket automático nativo (sin créditos Perplexity) ──
+          // soporte@yummus-yummus.odoo.com — Customer Care ID 1
+          try {
+            let emailSubject, emailBody;
+            if (isReclamo) {
+              const rd = reclamoData;
+              emailSubject = `Reclamo de producto \u2014 ${rd.nombre||"Cliente"} \u2014 ${rd.producto||"Banzitos"}`;
+              emailBody = [
+                `Canal: Chatbot Web Banzitos`,
+                `Tipo: Reclamo de Producto`,
+                ``,
+                `Nombre: ${rd.nombre||"-"}`,
+                `Email: ${rd.email||"-"}`,
+                `Tel\u00E9fono: ${rd.telefono||"-"}`,
+                `Producto: ${rd.producto||"-"}`,
+                `Lote: ${rd.lote||"-"}`,
+                `Cantidad: ${rd.cantidad||"-"}`,
+                `Causa: ${rd.causa||"-"}`,
+                `Descripci\u00F3n: ${rd.descripcion||"-"}`,
+                `Direcci\u00F3n de entrega: ${rd.direccion||"-"}`,
+                `Horario preferido: ${rd.horario||"-"}`,
+                ``,
+                `Conversaci\u00F3n:`,
+                convoSnippet,
+              ].join("\n");
+            } else {
+              emailSubject = `${isPriority ? "[ALTA PRIORIDAD] " : ""}Escalaci\u00F3n chatbot \u2014 ${escalationCheck.reason}`;
+              emailBody = [
+                `Canal: Chatbot Web Banzitos`,
+                `Tipo: Escalaci\u00F3n`,
+                `Prioridad: ${isPriority ? "ALTA" : "Normal"}`,
+                `Raz\u00F3n: ${escalationCheck.reason}`,
+                `Hora: ${ts} UTC`,
+                isPriority ? `Keywords: ${matched.join(", ")}` : "",
+                ``,
+                `Conversaci\u00F3n (\u00FAltimos mensajes):`,
+                convoSnippet,
+              ].filter(Boolean).join("\n");
+            }
+            // MailChannels — entrega nativa en Cloudflare Workers, sin dependencias externas
+            fetch("https://api.mailchannels.net/tx/v1/send", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                personalizations: [{
+                  to: [{ email: "soporte@yummus-yummus.odoo.com", name: "Soporte Banzitos" }],
+                  cc: [
+                    { email: "siman@banzitos.com.mx", name: "Siman" },
+                    { email: "rodrigo@banzitos.com.mx", name: "Rodrigo" },
+                  ],
+                }],
+                from: { email: "hola@banzitos.com.mx", name: "Chatbot Banzitos" },
+                subject: emailSubject,
+                content: [{ type: "text/plain", value: emailBody }],
+              }),
+            }).catch(err => console.error("MailChannels error:", err));
+          } catch (emailErr) { console.error("Email Odoo error:", emailErr); }
+
+          // ── 3. KV backup 24h — por si el email falla, el cron de escalaciones lo rescata ──
           if (env.ESCALATIONS) {
             try {
-              const escalationData = {
-                sessionId,
-                userMessage: message,
-                botReply: cleanedReply,
-                reason: escalationCheck.reason,
-                timestamp: new Date().toISOString(),
-                ip: request.headers.get("CF-Connecting-IP") || "unknown",
-                conversationHistory: getHistory(sessionId).slice(-6),
-                telegramSent: !!env.TELEGRAM_BOT_TOKEN,
-              };
               const key = `esc_${Date.now()}_${sessionId.slice(0, 8)}`;
-              await env.ESCALATIONS.put(key, JSON.stringify(escalationData), { expirationTtl: 86400 * 7 });
-            } catch (kvErr) {
-              console.error("KV write error:", kvErr);
-            }
+              await env.ESCALATIONS.put(key, JSON.stringify({
+                sessionId, reason: escalationCheck.reason,
+                timestamp: new Date().toISOString(),
+                isReclamo, reclamoData,
+                conversationSnippet: convoSnippet,
+              }), { expirationTtl: 86400 }); // 24h solo como fallback
+            } catch (kvErr) { console.error("KV backup error:", kvErr); }
           }
         }
 
