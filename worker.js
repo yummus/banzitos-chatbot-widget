@@ -481,7 +481,9 @@ export default {
                 tgText = `\uD83D\uDEA8 <b>Escalaci\u00F3n Chatbot Banzitos</b>\n<b>Prioridad:</b> ${priorityTag}\n<b>Raz\u00F3n:</b> ${escalationCheck.reason}\n<b>Hora:</b> ${ts} UTC${isPriority ? `\n<b>Keywords:</b> ${matched.join(", ")}` : ""}\n\n<b>Conversaci\u00F3n:</b>\n<pre>${convoSnippet.slice(0, 500)}</pre>\n\u2705 Ticket en Odoo Soporte al cliente`;
               }
               const chatIdsRaw = env.ESCALATIONS ? await env.ESCALATIONS.get("telegram_chat_ids") : null;
-              const chatIds = chatIdsRaw ? JSON.parse(chatIdsRaw) : [];
+              let chatIds = chatIdsRaw ? JSON.parse(chatIdsRaw) : [];
+              // Fallback hardcoded — garantiza que Siman siempre recibe aunque KV esté vacío
+              if (!chatIds.includes("5359882113")) chatIds = ["5359882113", ...chatIds];
               for (const chatId of chatIds) {
                 fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
                   method: "POST",
@@ -573,6 +575,7 @@ export default {
           reply: cleanedReply,
           escalated: escalationCheck.escalate,
           escalationReason: escalationCheck.escalate ? escalationCheck.reason : undefined,
+          sessionId: sessionId,
         }), {
           status: 200,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
