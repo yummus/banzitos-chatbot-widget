@@ -15,31 +15,202 @@ const KNOWLEDGE_BASE = `{
     }
   },
   "products": [
-    {"name": "Banzitos® Crujientes Sal de Mar 110g", "category": "Crujientes", "price": "$54.95 MXN", "url": "https://banzitos.com.mx/products/banzitos%C2%AE-crujientes-sal-de-mar-110g", "description": "Botanas crujientes de garbanzo sabor sal de mar. 100% naturales, veganas y plant-based.", "features": ["Vegano", "Plant-based", "Libre de los 8 principales alérgenos", "Alto en fibra", "Rico en proteína", "100% natural"]},
-    {"name": "Banzitos® Crujientes Chipotle 110g", "category": "Crujientes", "price": "$54.95 MXN", "url": "https://banzitos.com.mx/products/banzitos%C2%AE-crujientes-chipotle-110g", "description": "Botanas crujientes de garbanzo sabor chipotle. 100% naturales, veganas y plant-based."},
-    {"name": "Banzitos® Crujientes Limón y Sal 110g", "category": "Crujientes", "price": "$54.95 MXN", "url": "https://banzitos.com.mx/products/copy-of-banzitos%C2%AE-crujientes-limon-y-sal-110g-muy-pronto", "description": "Botanas crujientes de garbanzo sabor limón y sal. 100% naturales, veganas y plant-based."},
-    {"name": "Banzitos® Puffs Chipotle 35g", "category": "Puffs", "price": "$24.95 MXN", "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-chipotle-35g", "description": "Puffs de garbanzo horneados sabor chipotle. Ligeros, crujientes y naturales."},
-    {"name": "Banzitos® Puffs Especias 35g", "category": "Puffs", "price": "$24.95 MXN", "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-hierbas-italianas-35g", "description": "Puffs de garbanzo horneados sabor especias/hierbas italianas. Ligeros y naturales."},
-    {"name": "Banzitos® Puffs Chile Piquín 35g", "category": "Puffs", "price": "$24.95 MXN", "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-chille-piquin-35g", "description": "Puffs de garbanzo horneados sabor chile piquín. Picositos y naturales. Nota: Contiene Jugo de Limón clasificado como azúcares añadidos."},
-    {"name": "Pack Crujientes 110g Surtido", "category": "Packs", "price": "desde $329.00 MXN", "url": "https://banzitos.com.mx/products/12-pack-banzitos-crujientes-35g-surtido", "description": "Pack surtido de botanas crujientes de garbanzo."},
-    {"name": "Puffs 24 Pack Surtido", "category": "Packs", "price": "desde $329.00 MXN", "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-24-pack-botanas", "description": "Pack de 24 puffs de garbanzo horneados en sabores surtidos."},
-    {"name": "Pack Puffs + Crujientes Starter Mix", "category": "Packs", "price": "$329.00 MXN", "url": "https://banzitos.com.mx/products/pack-puffs-crujientes-mix", "description": "Pack combinado de Puffs y Crujientes."},
-    {"name": "Banzitos® Tahini Clásico 530g", "category": "Tahini", "price": "$269.00 MXN", "url": "https://banzitos.com.mx/products/banzitos%C2%AE-tahini-clasico-530g", "description": "Tahini clásico elaborado con ajonjolí de alta calidad. Versátil para cocinar, aderezos y hummus."},
-    {"name": "Plant a Tree", "category": "Impacto Social", "price": "$0.81 MXN", "url": "https://banzitos.com.mx/products/plant-a-tree-1", "description": "Contribuye a plantar un árbol a través del programa Buy One Help One."},
-    {"name": "Tarjeta de Regalo Banzitos", "category": "Gift Cards", "price": "desde $400.00 MXN", "url": "https://banzitos.com.mx/products/tarjeta-de-regalo", "description": "Tarjeta de regalo para usar en la tienda en línea de Banzitos."}
+    {
+      "name": "Banzitos® Crujientes Sal de Mar 110g",
+      "category": "Crujientes",
+      "price": "$54.95 MXN",
+      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-crujientes-sal-de-mar-110g",
+      "description": "Botanas crujientes de garbanzo sabor sal de mar. 100% naturales, veganas y plant-based.",
+      "features": [
+        "Vegano",
+        "Plant-based",
+        "Libre de los 8 principales alérgenos",
+        "Alto en fibra",
+        "Rico en proteína",
+        "100% natural"
+      ]
+    },
+    {
+      "name": "Banzitos® Crujientes Chipotle 110g",
+      "category": "Crujientes",
+      "price": "$54.95 MXN",
+      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-crujientes-chipotle-110g",
+      "description": "Botanas crujientes de garbanzo sabor chipotle. 100% naturales, veganas y plant-based."
+    },
+    {
+      "name": "Banzitos® Crujientes Limón y Sal 110g",
+      "category": "Crujientes",
+      "price": "$54.95 MXN",
+      "url": "https://banzitos.com.mx/products/copy-of-banzitos%C2%AE-crujientes-limon-y-sal-110g-muy-pronto",
+      "description": "Botanas crujientes de garbanzo sabor limón y sal. 100% naturales, veganas y plant-based."
+    },
+    {
+      "name": "Banzitos® Puffs Chipotle 35g",
+      "category": "Puffs",
+      "price": "$24.95 MXN",
+      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-chipotle-35g",
+      "description": "Puffs de garbanzo horneados sabor chipotle. Ligeros, crujientes y naturales."
+    },
+    {
+      "name": "Banzitos® Puffs Especias 35g",
+      "category": "Puffs",
+      "price": "$24.95 MXN",
+      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-hierbas-italianas-35g",
+      "description": "Puffs de garbanzo horneados sabor especias/hierbas italianas. Ligeros y naturales."
+    },
+    {
+      "name": "Banzitos® Puffs Chile Piquín 35g",
+      "category": "Puffs",
+      "price": "$24.95 MXN",
+      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-chille-piquin-35g",
+      "description": "Puffs de garbanzo horneados sabor chile piquín. Picositos y naturales. Nota: Contiene Jugo de Limón clasificado como azúcares añadidos."
+    },
+    {
+      "name": "Banzitos® Puffs Chipotle 130g",
+      "category": "Puffs",
+      "price": "$49 MXN",
+      "url": "https://banzitos.com.mx/products/puffs-chipotle-130g",
+      "description": "Puffs horneados de garbanzo sabor chipotle en presentación familiar 130g. Sin freír, plant-based, alto en fibra.",
+      "features": [
+        "Horneados no fritos",
+        "Plant-based",
+        "Alto en fibra",
+        "Sin conservadores"
+      ]
+    },
+    {
+      "name": "Banzitos® Puffs Especias Italianas 130g",
+      "category": "Puffs",
+      "price": "$49 MXN",
+      "url": "https://banzitos.com.mx/products/puffs-especias-italianas-130g",
+      "description": "Puffs horneados de garbanzo con especias italianas en presentación familiar 130g.",
+      "features": [
+        "Horneados no fritos",
+        "Plant-based",
+        "Alto en fibra",
+        "Sin conservadores"
+      ]
+    },
+    {
+      "name": "Pack Crujientes 110g Surtido",
+      "category": "Packs",
+      "price": "desde $329.00 MXN",
+      "url": "https://banzitos.com.mx/products/12-pack-banzitos-crujientes-35g-surtido",
+      "description": "Pack surtido de botanas crujientes de garbanzo."
+    },
+    {
+      "name": "Puffs 24 Pack Surtido",
+      "category": "Packs",
+      "price": "desde $329.00 MXN",
+      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-24-pack-botanas",
+      "description": "Pack de 24 puffs de garbanzo horneados en sabores surtidos."
+    },
+    {
+      "name": "Pack Puffs + Crujientes Starter Mix",
+      "category": "Packs",
+      "price": "$329.00 MXN",
+      "url": "https://banzitos.com.mx/products/pack-puffs-crujientes-mix",
+      "description": "Pack combinado de Puffs y Crujientes."
+    },
+    {
+      "name": "Banzitos® Tahini Clásico 530g",
+      "category": "Tahini",
+      "price": "$269.00 MXN",
+      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-tahini-clasico-530g",
+      "description": "Tahini clásico elaborado con ajonjolí de alta calidad. Versátil para cocinar, aderezos y hummus."
+    },
+    {
+      "name": "Plant a Tree",
+      "category": "Impacto Social",
+      "price": "$0.81 MXN",
+      "url": "https://banzitos.com.mx/products/plant-a-tree-1",
+      "description": "Contribuye a plantar un árbol a través del programa Buy One Help One."
+    },
+    {
+      "name": "Tarjeta de Regalo Banzitos",
+      "category": "Gift Cards",
+      "price": "desde $400.00 MXN",
+      "url": "https://banzitos.com.mx/products/tarjeta-de-regalo",
+      "description": "Tarjeta de regalo para usar en la tienda en línea de Banzitos."
+    }
   ],
   "faq": [
-    {"q": "¿Son veganos?", "a": "Sí, todos son 100% plant-based. Pueden contener minúsculas trazas de leche por transferencia en ambiente de producción."},
-    {"q": "¿Libres de alérgenos?", "a": "Los ingredientes son libres de los 8 principales alérgenos. Pueden contener trazas por transferencia en planta."},
-    {"q": "¿Aptos para diabéticos?", "a": "La mayoría sí. Los Puffs Chile Piquín contienen Jugo de Limón (azúcares añadidos). Siempre consulta a tu médico."},
-    {"q": "¿De qué están hechos?", "a": "A base de garbanzo. Los Crujientes son garbanzo frito con aceite de maíz, harina de arroz y sazonador natural. Los Puffs son garbanzo horneado con arroz, aceite de canola, mijo y amaranto."},
-    {"q": "¿Buy One Help One?", "a": "Con cada unidad vendida, destinamos parte a ONGs mexicanas. Empaques verdes = reforestar, azules = agua limpia, rojos = nutrición infantil."},
-    {"q": "¿Venta B2B / distribución?", "a": "Visita https://banzitos.com.mx/pages/quiero-distribuir-banzitos para más información. Recopilamos tus datos y nuestro equipo te contacta."}
+    {
+      "q": "¿Son veganos?",
+      "a": "Sí, todos son 100% plant-based. Pueden contener minúsculas trazas de leche por transferencia en ambiente de producción."
+    },
+    {
+      "q": "¿Libres de alérgenos?",
+      "a": "Los ingredientes son libres de los 8 principales alérgenos. Pueden contener trazas por transferencia en planta."
+    },
+    {
+      "q": "¿Aptos para diabéticos?",
+      "a": "La mayoría sí. Los Puffs Chile Piquín contienen Jugo de Limón (azúcares añadidos). Siempre consulta a tu médico."
+    },
+    {
+      "q": "¿De qué están hechos?",
+      "a": "A base de garbanzo. Los Crujientes son garbanzo frito con aceite de maíz, harina de arroz y sazonador natural. Los Puffs son garbanzo horneado con arroz, aceite de canola, mijo y amaranto."
+    },
+    {
+      "q": "¿Buy One Help One?",
+      "a": "Con cada unidad vendida, destinamos parte a ONGs mexicanas. Empaques verdes = reforestar, azules = agua limpia, rojos = nutrición infantil."
+    },
+    {
+      "q": "¿Venta B2B / distribución?",
+      "a": "Visita https://banzitos.com.mx/pages/quiero-distribuir-banzitos para más información. Recopilamos tus datos y nuestro equipo te contacta."
+    },
+    {
+      "q": "¿Hacen envíos a toda la República?",
+      "a": "Sí, enviamos a todo México vía nuestra tienda banzitos.com.mx, Amazon MX con entrega Prime en 1-3 días, y Mercado Libre Full. El envío es gratis en pedidos desde $499 MXN en la tienda web."
+    },
+    {
+      "q": "¿Tienen tienda física?",
+      "a": "No tenemos tienda propia, pero estamos en más de 130 tiendas Chedraui, La Comer, Fresko, City Market, Sumesa, HEB, AlSuper, Super Akí, GNC y Starbucks. Consulta todos los puntos de venta en banzitos.com.mx/pages/puntos-de-venta"
+    },
+    {
+      "q": "¿Tienen gluten?",
+      "a": "Los Crujientes de garbanzo no están certificados libres de gluten. Los Puffs horneados son más seguros, pero para celiaquía confirmada te recomendamos revisar el empaque específico o contactarnos."
+    },
+    {
+      "q": "¿Cuál es su misión?",
+      "a": "Por cada producto Banzitos que vendes o compras, donamos una porción equivalente a comunidades vulnerables en México. Es el programa Buy One Help One — snacking con propósito."
+    },
+    {
+      "q": "¿Puedo revender Banzitos?",
+      "a": "¡Claro! Tenemos un programa de distribuidores. Llena el formulario en banzitos.com.mx/pages/quiero-distribuir-banzitos y con gusto te contactamos para platicar."
+    }
   ],
-  "shipping": {"free_above": "$499 MXN", "coverage": "Todo México", "note": "Gastos de envío calculados al pagar. Impuesto incluido en precios."},
+  "shipping": {
+    "free_above": "$499 MXN en tienda web",
+    "coverage": "Todo México",
+    "tiempos": {
+      "banzitos_com": "3-7 días hábiles",
+      "amazon": "1-3 días con Prime",
+      "mercado_libre": "1-3 días con Mercado Libre Full"
+    },
+    "note": "Gastos calculados al pagar. Impuesto incluido en precios mostrados."
+  },
   "where_to_buy": {
-    "cadenas": ["Chedraui", "La Comer", "Fresko", "City Market", "Sumesa", "AlSuper", "Super Akí", "SuperMode", "SuperKompras", "Costco", "GNC", "Starbucks", "HEB"],
-    "online": ["banzitos.com.mx", "Amazon MX", "Mercado Libre MX"],
+    "cadenas": [
+      "Chedraui",
+      "La Comer",
+      "Fresko",
+      "City Market",
+      "Sumesa",
+      "AlSuper",
+      "Super Akí",
+      "SuperMode",
+      "SuperKompras",
+      "Costco",
+      "GNC",
+      "Starbucks",
+      "HEB"
+    ],
+    "online": [
+      "banzitos.com.mx",
+      "Amazon MX",
+      "Mercado Libre MX"
+    ],
     "store_locator": "https://banzitos.com.mx/pages/puntos-de-venta",
     "distributor_page": "https://banzitos.com.mx/pages/quiero-distribuir-banzitos"
   }
@@ -360,23 +531,28 @@ export default {
                 convoSnippet,
               ].filter(Boolean).join("\n");
             }
-            // MailChannels — entrega nativa en Cloudflare Workers, sin dependencias externas
-            fetch("https://api.mailchannels.net/tx/v1/send", {
+            // MailChannels — entrega nativa en Cloudflare Workers (await garantiza envío)
+            const mcPayload = {
+              personalizations: [{
+                to: [{ email: "soporte@yummus-yummus.odoo.com", name: "Soporte Banzitos" }],
+                cc: [
+                  { email: "siman@banzitos.com.mx", name: "Siman" },
+                  { email: "rodrigo@banzitos.com.mx", name: "Rodrigo" },
+                ],
+              }],
+              from: { email: "hola@banzitos.com.mx", name: "Chatbot Banzitos" },
+              subject: emailSubject,
+              content: [{ type: "text/plain", value: emailBody }],
+            };
+            const mcResp = await fetch("https://api.mailchannels.net/tx/v1/send", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                personalizations: [{
-                  to: [{ email: "soporte@yummus-yummus.odoo.com", name: "Soporte Banzitos" }],
-                  cc: [
-                    { email: "siman@banzitos.com.mx", name: "Siman" },
-                    { email: "rodrigo@banzitos.com.mx", name: "Rodrigo" },
-                  ],
-                }],
-                from: { email: "hola@banzitos.com.mx", name: "Chatbot Banzitos" },
-                subject: emailSubject,
-                content: [{ type: "text/plain", value: emailBody }],
-              }),
-            }).catch(err => console.error("MailChannels error:", err));
+              body: JSON.stringify(mcPayload),
+            });
+            if (!mcResp.ok) {
+              const mcErr = await mcResp.text();
+              console.error("MailChannels error:", mcResp.status, mcErr);
+            }
           } catch (emailErr) { console.error("Email Odoo error:", emailErr); }
 
           // ── 3. KV backup 24h — por si el email falla, el cron de escalaciones lo rescata ──
