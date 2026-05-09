@@ -480,7 +480,7 @@ export default {
               } else {
                 tgText = `\uD83D\uDEA8 <b>Escalaci\u00F3n Chatbot Banzitos</b>\n<b>Prioridad:</b> ${priorityTag}\n<b>Raz\u00F3n:</b> ${escalationCheck.reason}\n<b>Hora:</b> ${ts} UTC${isPriority ? `\n<b>Keywords:</b> ${matched.join(", ")}` : ""}\n\n<b>Conversaci\u00F3n:</b>\n<pre>${convoSnippet.slice(0, 500)}</pre>\n\u2705 Ticket en Odoo Soporte al cliente`;
               }
-              const chatIdsRaw = env.ESCALATIONS ? await env.ESCALATIONS.get("telegram_chat_ids") : null;
+              const chatIdsRaw = env.BANZITOS_ESCALATIONS ? await env.BANZITOS_ESCALATIONS.get("telegram_chat_ids") : null;
               let chatIds = chatIdsRaw ? JSON.parse(chatIdsRaw) : [];
               // Fallback hardcoded — garantiza que Siman siempre recibe aunque KV esté vacío
               if (!chatIds.includes("5359882113")) chatIds = ["5359882113", ...chatIds];
@@ -558,10 +558,10 @@ export default {
           } catch (emailErr) { console.error("Email Odoo error:", emailErr); }
 
           // ── 3. KV backup 24h — por si el email falla, el cron de escalaciones lo rescata ──
-          if (env.ESCALATIONS) {
+          if (env.BANZITOS_ESCALATIONS) {
             try {
               const key = `esc_${Date.now()}_${sessionId.slice(0, 8)}`;
-              await env.ESCALATIONS.put(key, JSON.stringify({
+              await env.BANZITOS_ESCALATIONS.put(key, JSON.stringify({
                 sessionId, reason: escalationCheck.reason,
                 timestamp: new Date().toISOString(),
                 isReclamo, reclamoData,
@@ -608,7 +608,7 @@ export default {
     }
 
     // Telegram webhook handler - registers chat IDs when users /start the bot
-    if (url.pathname === "/telegram-webhook" && request.method === "POST" && env.ESCALATIONS && env.TELEGRAM_BOT_TOKEN) {
+    if (url.pathname === "/telegram-webhook" && request.method === "POST" && env.BANZITOS_ESCALATIONS && env.TELEGRAM_BOT_TOKEN) {
       try {
         const update = await request.json();
         const msg = update.message;
@@ -616,11 +616,11 @@ export default {
           const chatId = String(msg.chat.id);
           const userName = msg.from.first_name || "Usuario";
           // Load existing chat IDs
-          const raw = await env.ESCALATIONS.get("telegram_chat_ids");
+          const raw = await env.BANZITOS_ESCALATIONS.get("telegram_chat_ids");
           const ids = raw ? JSON.parse(raw) : [];
           if (!ids.includes(chatId)) {
             ids.push(chatId);
-            await env.ESCALATIONS.put("telegram_chat_ids", JSON.stringify(ids));
+            await env.BANZITOS_ESCALATIONS.put("telegram_chat_ids", JSON.stringify(ids));
           }
           // Send welcome message
           await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
@@ -635,7 +635,7 @@ export default {
         }
         if (msg && msg.text && msg.text.startsWith("/status")) {
           const chatId = String(msg.chat.id);
-          const keys = await env.ESCALATIONS.list({ prefix: "esc_" });
+          const keys = await env.BANZITOS_ESCALATIONS.list({ prefix: "esc_" });
           const pending = keys.keys.length;
           await fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
             method: "POST",
@@ -655,7 +655,7 @@ export default {
     }
 
     // Escalation management API (authenticated)
-    if (url.pathname === "/escalations" && env.ESCALATIONS) {
+    if (url.pathname === "/escalations" && env.BANZITOS_ESCALATIONS) {
       const authHeader = request.headers.get("Authorization") || "";
       if (authHeader !== `Bearer ${env.ADMIN_SECRET}`) {
         return new Response(JSON.stringify({ error: "Unauthorized" }), {
@@ -667,10 +667,10 @@ export default {
       // GET: list pending escalations
       if (request.method === "GET") {
         try {
-          const keys = await env.ESCALATIONS.list({ prefix: "esc_" });
+          const keys = await env.BANZITOS_ESCALATIONS.list({ prefix: "esc_" });
           const escalations = [];
           for (const key of keys.keys) {
-            const val = await env.ESCALATIONS.get(key.name);
+            const val = await env.BANZITOS_ESCALATIONS.get(key.name);
             if (val) {
               escalations.push({ key: key.name, ...JSON.parse(val) });
             }
@@ -690,7 +690,7 @@ export default {
       if (request.method === "DELETE") {
         try {
           const { key } = await request.json();
-          if (key) await env.ESCALATIONS.delete(key);
+          if (key) await env.BANZITOS_ESCALATIONS.delete(key);
           return new Response(JSON.stringify({ ok: true }), {
             headers: { "Content-Type": "application/json" },
           });
