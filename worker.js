@@ -672,7 +672,7 @@ export default {
           for (const key of keys.keys) {
             const val = await env.BANZITOS_ESCALATIONS.get(key.name);
             if (val) {
-              escalations.push({ key: key.name, ...JSON.parse(val) });
+              escalations.push({ kvKey: key.name, ...JSON.parse(val) });
             }
           }
           return new Response(JSON.stringify({ escalations }), {
