@@ -19,7 +19,7 @@ const KNOWLEDGE_BASE = `{
       "name": "Banzitos® Crujientes Sal de Mar 110g",
       "category": "Crujientes",
       "price": "$54.95 MXN",
-      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-crujientes-sal-de-mar-110g",
+      "url": "https://banzitos.com.mx/products/banzitos-crujientes-sal-de-mar-110g",
       "description": "Botanas crujientes de garbanzo sabor sal de mar. 100% naturales, veganas y plant-based.",
       "features": [
         "Vegano",
@@ -34,35 +34,35 @@ const KNOWLEDGE_BASE = `{
       "name": "Banzitos® Crujientes Chipotle 110g",
       "category": "Crujientes",
       "price": "$54.95 MXN",
-      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-crujientes-chipotle-110g",
+      "url": "https://banzitos.com.mx/products/banzitos-crujientes-chipotle-110g",
       "description": "Botanas crujientes de garbanzo sabor chipotle. 100% naturales, veganas y plant-based."
     },
     {
       "name": "Banzitos® Crujientes Limón y Sal 110g",
       "category": "Crujientes",
       "price": "$54.95 MXN",
-      "url": "https://banzitos.com.mx/products/copy-of-banzitos%C2%AE-crujientes-limon-y-sal-110g-muy-pronto",
+      "url": "https://banzitos.com.mx/products/copy-of-banzitos-crujientes-limon-y-sal-110g",
       "description": "Botanas crujientes de garbanzo sabor limón y sal. 100% naturales, veganas y plant-based."
     },
     {
       "name": "Banzitos® Puffs Chipotle 35g",
       "category": "Puffs",
       "price": "$24.95 MXN",
-      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-chipotle-35g",
+      "url": "https://banzitos.com.mx/products/banzitos-puffs-chipotle-35g",
       "description": "Puffs de garbanzo horneados sabor chipotle. Ligeros, crujientes y naturales."
     },
     {
       "name": "Banzitos® Puffs Especias 35g",
       "category": "Puffs",
       "price": "$24.95 MXN",
-      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-hierbas-italianas-35g",
+      "url": "https://banzitos.com.mx/products/banzitos-puffs-especias-italianas-35g",
       "description": "Puffs de garbanzo horneados sabor especias/hierbas italianas. Ligeros y naturales."
     },
     {
       "name": "Banzitos® Puffs Chile Piquín 35g",
       "category": "Puffs",
       "price": "$24.95 MXN",
-      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-chille-piquin-35g",
+      "url": "https://banzitos.com.mx/products/banzitos-puffs-chile-piquin-35g",
       "description": "Puffs de garbanzo horneados sabor chile piquín. Picositos y naturales. Nota: Contiene Jugo de Limón clasificado como azúcares añadidos."
     },
     {
@@ -95,28 +95,28 @@ const KNOWLEDGE_BASE = `{
       "name": "Pack Crujientes 110g Surtido",
       "category": "Packs",
       "price": "desde $329.00 MXN",
-      "url": "https://banzitos.com.mx/products/12-pack-banzitos-crujientes-35g-surtido",
+      "url": "https://banzitos.com.mx/products/banzitos-pack-crujientes-surtido",
       "description": "Pack surtido de botanas crujientes de garbanzo."
     },
     {
       "name": "Puffs 24 Pack Surtido",
       "category": "Packs",
       "price": "desde $329.00 MXN",
-      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-puffs-24-pack-botanas",
+      "url": "https://banzitos.com.mx/products/banzitos-puffs-surtido",
       "description": "Pack de 24 puffs de garbanzo horneados en sabores surtidos."
     },
     {
       "name": "Pack Puffs + Crujientes Starter Mix",
       "category": "Packs",
       "price": "$329.00 MXN",
-      "url": "https://banzitos.com.mx/products/pack-puffs-crujientes-mix",
+      "url": "https://banzitos.com.mx/products/banzitos-starter-mix",
       "description": "Pack combinado de Puffs y Crujientes."
     },
     {
       "name": "Banzitos® Tahini Clásico 530g",
       "category": "Tahini",
       "price": "$269.00 MXN",
-      "url": "https://banzitos.com.mx/products/banzitos%C2%AE-tahini-clasico-530g",
+      "url": "https://banzitos.com.mx/products/banzitos-tahini-clasico-530g",
       "description": "Tahini clásico elaborado con ajonjolí de alta calidad. Versátil para cocinar, aderezos y hummus."
     },
     {
@@ -157,7 +157,7 @@ const KNOWLEDGE_BASE = `{
     },
     {
       "q": "¿Venta B2B / distribución?",
-      "a": "Visita https://banzitos.com.mx/pages/quiero-distribuir-banzitos para más información. Recopilamos tus datos y nuestro equipo te contacta."
+      "a": "Visita https://banzitos.com.mx/pages/faq para más información. Recopilamos tus datos y nuestro equipo te contacta."
     },
     {
       "q": "¿Hacen envíos a toda la República?",
@@ -165,7 +165,7 @@ const KNOWLEDGE_BASE = `{
     },
     {
       "q": "¿Tienen tienda física?",
-      "a": "No tenemos tienda propia, pero estamos en más de 130 tiendas Chedraui, La Comer, Fresko, City Market, Sumesa, HEB, AlSuper, Super Akí, GNC y Starbucks. Consulta todos los puntos de venta en banzitos.com.mx/pages/puntos-de-venta"
+      "a": "No tenemos tienda propia, pero estamos en más de 130 tiendas Chedraui, La Comer, Fresko, City Market, Sumesa, HEB, AlSuper, Super Akí, GNC y Starbucks. Consulta todos los puntos de venta en banzitos.com.mx/pages/donde-comprar"
     },
     {
       "q": "¿Tienen gluten?",
@@ -177,7 +177,7 @@ const KNOWLEDGE_BASE = `{
     },
     {
       "q": "¿Puedo revender Banzitos?",
-      "a": "¡Claro! Tenemos un programa de distribuidores. Llena el formulario en banzitos.com.mx/pages/quiero-distribuir-banzitos y con gusto te contactamos para platicar."
+      "a": "¡Claro! Tenemos un programa de distribuidores. Llena el formulario en banzitos.com.mx/pages/faq y con gusto te contactamos para platicar."
     }
   ],
   "shipping": {
@@ -211,10 +211,37 @@ const KNOWLEDGE_BASE = `{
       "Amazon MX",
       "Mercado Libre MX"
     ],
-    "store_locator": "https://banzitos.com.mx/pages/puntos-de-venta",
-    "distributor_page": "https://banzitos.com.mx/pages/quiero-distribuir-banzitos"
+    "store_locator": "https://banzitos.com.mx/pages/donde-comprar",
+    "distributor_page": "https://banzitos.com.mx/pages/faq"
   }
-}`;
+}
+
+## Información Nutricional (por porción)
+- Crujientes 110g (porción 30g): ~120 kcal, 8g proteína, 5g fibra, 3g grasa
+- Puffs 35g (porción 35g): ~130 kcal, 4g proteína, 2g fibra, 4g grasa  
+- Puffs 130g (porción 30g): ~120 kcal, 4g proteína, 2g fibra, 4g grasa
+- Tahini 530g (porción 15g): ~90 kcal, 3g proteína, 1g fibra, 8g grasa saludable
+
+## Preguntas sobre Lotes y Caducidad
+- El número de lote (formato BZ-AAAA-NNN) aparece impreso en el fondo o costado del empaque
+- Vigencia: 12 meses para Crujientes y Puffs | 8 meses para Tahini
+- Si el lote es ilegible o el empaque está dañado → escalable como reclamo de calidad
+
+## Garantía y Devoluciones
+- Si el producto llegó dañado, con mal sabor, empaque roto o vencido: SIEMPRE ofrecer kit de reposición sin costo
+- Pedir: producto afectado, lote (si visible), cantidad, descripción del problema, dirección, teléfono y horario de entrega
+- No pedir ticket de compra — se les cree a los clientes
+
+## Contacto Directo
+- Email: hola@banzitos.com.mx
+- Instagram DM: @banzitos
+- WhatsApp no disponible (solo email e Instagram)
+- Tiempo de respuesta del equipo: 1-2 días hábiles
+
+## Preguntas de Competencia
+- No hacer comparaciones directas con otras marcas (Biena, Hippeas, Don Pork, etc.)
+- Enfocarse en lo que hace único a Banzitos: sin los 8 alérgenos, donación social, sabores mexicanos, disponible en cadenas grandes
+`;
 
 const SYSTEM_PROMPT = `Eres Banzito, el asistente virtual de Banzitos® — snacks saludables hechos de garbanzo. Tu personalidad es amigable, entusiasta pero profesional, y siempre hablas en español mexicano.
 
@@ -224,7 +251,11 @@ REGLAS PRINCIPALES:
 3. Siempre sugiere productos relevantes con links cuando aplique.
 4. Si detectas que el cliente está frustrado o molesto, escala inmediatamente.
 5. Para temas de pedidos específicos (tracking, reembolsos, cambios), escala al equipo.
-6. Para consultas B2B/distribución, recopila: nombre, empresa, ubicación, email, y escala.
+6. Para consultas B2B/distribución, recopila datos básicos (nombre, negocio, ciudad) y escala.
+7. Si el cliente escribe en inglés, responde en inglés — mantén siempre el idioma del cliente.
+8. Si el cliente menciona cualquier problema físico con el producto (empaque abierto, sellado roto, olor raro, sabor extraño, producto dañado), trátalo como reclamo — ofrece el kit de reposición y recopila datos.
+9. NUNCA reveles: precios B2B, márgenes, costos de producción, nombres de proveedores/maquiladores, acuerdos con retailers, ni datos internos del ERP.
+10. No compares directamente con otras marcas. Solo habla de lo que hace único a Banzitos.
 7. NUNCA inventes información que no esté en tu base de conocimiento.
 8. Si te preguntan algo fuera de tema (política, religión, competidores, etc.), redirige amablemente a temas de Banzitos.
 
